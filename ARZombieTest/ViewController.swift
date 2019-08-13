@@ -10,24 +10,23 @@ import UIKit
 import SceneKit
 import ARKit
 
-class ViewController: UIViewController, ARSCNViewDelegate {
+class ViewController: UIViewController, ARSKViewDelegate  {
 
-    @IBOutlet var sceneView: ARSCNView!
+  // create a new view with ARSkView
+    @IBOutlet var sceneView: ARSKView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Set the view's delegate
-        sceneView.delegate = self
-        
-        // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
+        sceneView.delegate = self 
         
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        
         // Set the scene to the view
-        sceneView.scene = scene
+        let scene = Scene(size: sceneView.bounds.size)
+        scene.scaleMode = .resizeFill
+        sceneView.presentScene(scene)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
