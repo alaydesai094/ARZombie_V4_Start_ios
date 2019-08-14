@@ -13,6 +13,8 @@ import ARKit
 class ViewController: UIViewController, ARSKViewDelegate  {
 
   // create a new view with ARSkView
+     
+   
     @IBOutlet var sceneView: ARSKView!
     
     override func viewDidLoad() {
@@ -46,6 +48,46 @@ class ViewController: UIViewController, ARSKViewDelegate  {
         sceneView.session.pause()
     }
 
+    
+    func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
+        
+        let zombie:SKSpriteNode = SKSpriteNode(imageNamed:"Attack1")
+        
+        
+        // Show animation for dinosaur
+        // ----------------------------
+        // 1. make an array of images for the animation
+        // -- SKTexture = Object to hold images
+        var dinoTextures:[SKTexture] = []
+        for i in 1...6 {
+            let fileName = "Attack\(i)"
+            print("Adding: \(fileName) to array")
+            dinoTextures.append(SKTexture(imageNamed: fileName))
+        }
+        
+        // 2. Tell Spritekit to use that array to create your animation
+        let walkingAnimation = SKAction.animate(
+            with: dinoTextures,
+            timePerFrame: 0.1)
+        
+        // 3. Repeat the animation forever
+        zombie.run(SKAction.repeatForever(walkingAnimation))
+        
+        zombie.name = "Attack"
+        
+        return zombie
+    }
+    
+    
+    
+    func randomInt(min: Int, max: Int) -> Int {
+        return min + Int(arc4random_uniform(UInt32(max - min + 1)))
+    }
+    
+    
+    
+    
+    
     // MARK: - ARSCNViewDelegate
     
 /*

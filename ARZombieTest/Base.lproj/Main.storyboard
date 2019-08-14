@@ -13,16 +13,17 @@
         <scene sceneID="tXr-a1-R10">
             <objects>
                 <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="ARZombieTest" customModuleProvider="target" sceneMemberID="viewController">
-                    <arskView key="view" contentMode="scaleToFill" id="mEe-zS-Y0j">
+                    <arskView key="view" contentMode="scaleToFill" id="P19-VX-tPf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </arskView>
                     <connections>
-                        <outlet property="sceneView" destination="mEe-zS-Y0j" id="Kgf-0y-eb4"/>
+                        <outlet property="sceneView" destination="P19-VX-tPf" id="jcC-Pv-ffv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-1155" y="-122"/>
         </scene>
     </scenes>
 </document>

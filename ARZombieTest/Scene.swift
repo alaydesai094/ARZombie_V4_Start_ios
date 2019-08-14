@@ -310,8 +310,31 @@ class Scene: SKScene {
                 
             }
             
+            if node == back0 {
+                
+                story2 = false;
+                
+                bg.removeFromParent()
+                nic.removeFromParent()
+                next1.removeFromParent()
+                back0.removeFromParent()
+                
+                Page2.removeFromParent()
+                Page21.removeFromParent()
+                Page22.removeFromParent()
+                Page23.removeFromParent()
+                Page24.removeFromParent()
+
+                
+                jump0 = true;
+                
+                
+            }
+            
             
             if node == next3 {
+                
+                
                 
                 
                 Page4.removeFromParent()
@@ -436,34 +459,24 @@ class Scene: SKScene {
             // Mark: go back
             //--------------------------------------
             
-//
-//            if(jump0){
-//
-//                bg.removeFromParent()
-//                nic.removeFromParent()
-//                next1.removeFromParent()
-//                back0.removeFromParent()
-//
-//                Page2.removeFromParent()
-//                Page21.removeFromParent()
-//                Page22.removeFromParent()
-//                Page23.removeFromParent()
-//                Page24.removeFromParent()
-//
-//
-//
-//                addChild(bg)
-//                addChild(nic)
-//                addChild(next0)
-//
-//                addChild(StoryLabel)
-//                addChild(StoryLabel1)
-//                addChild(StoryLabel2)
-//                addChild(StoryLabel3)
-//                addChild(StoryLabel4)
-//
-//            }
-//
+
+            if(jump0){
+
+               
+
+
+                //addChild(bg)
+                //addChild(nic)
+                addChild(next0)
+
+                addChild(StoryLabel)
+                addChild(StoryLabel1)
+                addChild(StoryLabel2)
+                addChild(StoryLabel3)
+                addChild(StoryLabel4)
+
+            }
+
             
             
             
