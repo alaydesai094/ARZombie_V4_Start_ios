@@ -16,8 +16,17 @@ class GameScene: SKScene {
         return view as! ARSKView
     }
     
+    //---------------------------------
+    // Flags
+    //---------------------------------
+    
+    var night: Bool! = false;
+    var blind: Bool! = false;
+    
+    
    //Button
     let exitbtn:SKSpriteNode = SKSpriteNode(imageNamed:"exitbtn")
+    
     
     
     //Sound
@@ -46,8 +55,14 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
+        let nightvision:SKSpriteNode = SKSpriteNode(imageNamed:"night")
+        nightvision.name = "nightvision"
+        
           exitbtn.position = CGPoint(x:300, y:550)
           addChild(exitbtn)
+        
+        nightvision.position = CGPoint(x:70, y:550)
+        addChild(nightvision)
         
         
         ghostsLabel.fontSize = 20
@@ -110,13 +125,6 @@ class GameScene: SKScene {
         // Add the anchor
         sceneView.session.add(anchor: anchor)
         
-        
-      
-
-        
-        
-        
-        
         // Increment the counter
         ghostCount += 1
         
@@ -142,6 +150,8 @@ class GameScene: SKScene {
         // Color Change
         //-----------------------------------
         
+        //if(night){
+        
         // 1
         guard let currentFrame = sceneView.session.currentFrame,
             let lightEstimate = currentFrame.lightEstimate else {
@@ -161,10 +171,10 @@ class GameScene: SKScene {
                 bug.colorBlendFactor = blendFactor
             }
         }
+     
+       // }
         
-        
-        //-------------------------------
-        
+           //-------------------------------
     }
     
     
@@ -177,42 +187,26 @@ class GameScene: SKScene {
         guard let touch = touches.first else {
             return
         }
-//        // Get the location in the AR scene
-//        let location = touch.location(in: self)
-//
-//        // Get the nodes at that location
-//        let hit = nodes(at: location)
-//
-//        // Get the first node (if any)
-//        if let node = hit.first {
-//            // Check if the node is a ghost (remember that labels are also a node)
-//
-//
-//            if node.name == "Attack" {
-//
-//                let fadeOut = SKAction.fadeOut(withDuration: 0.5)
-//                let remove = SKAction.removeFromParent()
-//
-//                // Group the fade out and sound actions
-//                let groupKillingActions = SKAction.group([fadeOut, killSound])
-//                // Create an action sequence
-//                let sequenceAction = SKAction.sequence([groupKillingActions, remove])
-//
-//                // Excecute the actions
-//                node.run(sequenceAction)
-//
-//                // Update the counter
-//                ghostCount -= 1
-//
-//
-//            }
+      
+        
+        
         
             let location = sight.position
             let hitNodes = nodes(at: location)
-            
-        var hitBug: SKNode?
+        
+         var hitBug: SKNode?
+        
         for node in hitNodes {
             if node.name == "Attack" {
+                hitBug = node
+                break
+            }
+        }
+        
+            
+       
+        for node in hitNodes {
+            if node.name == "nightvision" {
                 hitBug = node
                 break
             }
