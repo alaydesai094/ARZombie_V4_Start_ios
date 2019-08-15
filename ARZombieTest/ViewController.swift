@@ -27,6 +27,7 @@ class ViewController: UIViewController, ARSKViewDelegate  {
         // Set the scene to the view
         let scene = Scene(size: sceneView.bounds.size)
         scene.scaleMode = .resizeFill
+        //scene.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         sceneView.presentScene(scene)
         
     }

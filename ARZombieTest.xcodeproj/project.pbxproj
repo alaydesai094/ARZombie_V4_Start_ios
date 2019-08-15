@@ -16,6 +16,8 @@
 		902180A323027399000A8776 /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 902180A223027399000A8776 /* Scene.sks */; };
 		902180A523032F2F000A8776 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 902180A423032F2F000A8776 /* GameScene.sks */; };
 		902180A723032F47000A8776 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902180A623032F47000A8776 /* GameScene.swift */; };
+		902180A92304F56D000A8776 /* ghost.wav in Resources */ = {isa = PBXBuildFile; fileRef = 902180A82304F56D000A8776 /* ghost.wav */; };
+		902180AB2304FFB9000A8776 /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = 902180AA2304FFB9000A8776 /* Sounds */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		902180A223027399000A8776 /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
 		902180A423032F2F000A8776 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		902180A623032F47000A8776 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		902180A82304F56D000A8776 /* ghost.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ghost.wav; sourceTree = "<group>"; };
+		902180AA2304FFB9000A8776 /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,10 +66,12 @@
 		9021807B230261BA000A8776 /* ARZombieTest */ = {
 			isa = PBXGroup;
 			children = (
+				902180A82304F56D000A8776 /* ghost.wav */,
 				9021807C230261BA000A8776 /* AppDelegate.swift */,
 				90218080230261BA000A8776 /* ViewController.swift */,
 				90218082230261BA000A8776 /* Main.storyboard */,
 				90218085230261BC000A8776 /* Assets.xcassets */,
+				902180AA2304FFB9000A8776 /* Sounds */,
 				90218087230261BC000A8776 /* LaunchScreen.storyboard */,
 				9021808A230261BC000A8776 /* Info.plist */,
 				902180A023027382000A8776 /* Scene.swift */,
@@ -138,7 +144,9 @@
 				902180A523032F2F000A8776 /* GameScene.sks in Resources */,
 				90218086230261BC000A8776 /* Assets.xcassets in Resources */,
 				902180A323027399000A8776 /* Scene.sks in Resources */,
+				902180A92304F56D000A8776 /* ghost.wav in Resources */,
 				90218084230261BA000A8776 /* Main.storyboard in Resources */,
+				902180AB2304FFB9000A8776 /* Sounds in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

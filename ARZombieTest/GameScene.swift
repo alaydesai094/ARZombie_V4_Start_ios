@@ -11,15 +11,22 @@ import ARKit
 
 class GameScene: SKScene {
     
-    //-------------------------
-    // MARK: Button
-    //--------------------------
+   
+    var sceneView: ARSKView {
+        return view as! ARSKView
+    }
     
+   //Button
     let exitbtn:SKSpriteNode = SKSpriteNode(imageNamed:"exitbtn")
+    
+    
+    //Sound
+    let killSound = SKAction.playSoundFileNamed("ghost", waitForCompletion: false)
     
     //---------------------------
     // variables
     //---------------------------
+    
     
      var creationTime : TimeInterval = 0
      let ghostsLabel = SKLabelNode(text: "Zombies")
@@ -30,6 +37,11 @@ class GameScene: SKScene {
             self.numberOfGhostsLabel.text = "\(ghostCount)"
         }
     }
+    
+    
+    //Characters
+    var sight: SKSpriteNode!
+    
     
     
     override func didMove(to view: SKView) {
@@ -52,6 +64,9 @@ class GameScene: SKScene {
         addChild(numberOfGhostsLabel)
         
         createZombieAnchor()
+        
+        sight = SKSpriteNode(imageNamed: "sight")
+        addChild(sight)
       
         
     }
@@ -74,25 +89,33 @@ class GameScene: SKScene {
         
         // Create a rotation matrix in the X-axis
         let rotateX = simd_float4x4(SCNMatrix4MakeRotation(_360degrees * randomFloat(min: 0.0, max: 1.0), 1, 0, 0))
-        
+
         // Create a rotation matrix in the Y-axis
         let rotateY = simd_float4x4(SCNMatrix4MakeRotation(_360degrees * randomFloat(min: 0.0, max: 1.0), 0, 1, 0))
-        
+
         // Combine both rotation matrices
         let rotation = simd_mul(rotateX, rotateY)
-        
+
         // Create a translation matrix in the Z-axis with a value between 1 and 2 meters
         var translation = matrix_identity_float4x4
-        translation.columns.3.z = -1 - randomFloat(min: 0.0, max: 1.0)
-        
+       // translation.columns.3.z = -1 - randomFloat(min: 0.0, max: 1.0)
+        translation.columns.3.z = -0.3
+
         // Combine the rotation and translation matrices
         let transform = simd_mul(rotation, translation)
-        
+
         // Create an anchor
         let anchor = ARAnchor(transform: transform)
-        
+
         // Add the anchor
         sceneView.session.add(anchor: anchor)
+        
+        
+      
+
+        
+        
+        
         
         // Increment the counter
         ghostCount += 1
@@ -115,6 +138,32 @@ class GameScene: SKScene {
 
         }
         
+        //-----------------------------------
+        // Color Change
+        //-----------------------------------
+        
+        // 1
+        guard let currentFrame = sceneView.session.currentFrame,
+            let lightEstimate = currentFrame.lightEstimate else {
+                return
+        }
+        
+        // 2
+        let neutralIntensity: CGFloat = 1000
+        let ambientIntensity = min(lightEstimate.ambientIntensity,
+                                   neutralIntensity)
+        let blendFactor = 1 - ambientIntensity / neutralIntensity
+        
+        // 3
+        for node in children {
+            if let bug = node as? SKSpriteNode {
+                bug.color = .green
+                bug.colorBlendFactor = blendFactor
+            }
+        }
+        
+        
+        //-------------------------------
         
     }
     
@@ -128,26 +177,60 @@ class GameScene: SKScene {
         guard let touch = touches.first else {
             return
         }
-        // Get the location in the AR scene
-        let location = touch.location(in: self)
+//        // Get the location in the AR scene
+//        let location = touch.location(in: self)
+//
+//        // Get the nodes at that location
+//        let hit = nodes(at: location)
+//
+//        // Get the first node (if any)
+//        if let node = hit.first {
+//            // Check if the node is a ghost (remember that labels are also a node)
+//
+//
+//            if node.name == "Attack" {
+//
+//                let fadeOut = SKAction.fadeOut(withDuration: 0.5)
+//                let remove = SKAction.removeFromParent()
+//
+//                // Group the fade out and sound actions
+//                let groupKillingActions = SKAction.group([fadeOut, killSound])
+//                // Create an action sequence
+//                let sequenceAction = SKAction.sequence([groupKillingActions, remove])
+//
+//                // Excecute the actions
+//                node.run(sequenceAction)
+//
+//                // Update the counter
+//                ghostCount -= 1
+//
+//
+//            }
         
-        // Get the nodes at that location
-        let hit = nodes(at: location)
-        
-        // Get the first node (if any)
-        if let node = hit.first {
-            // Check if the node is a ghost (remember that labels are also a node)
+            let location = sight.position
+            let hitNodes = nodes(at: location)
             
-            
-            if node == exitbtn {
-                
-               
+        var hitBug: SKNode?
+        for node in hitNodes {
+            if node.name == "Attack" {
+                hitBug = node
+                break
             }
-            
-            
+        }
+
+        //run(Sounds.fire)
+        if let hitBug = hitBug,
+            let anchor = sceneView.anchor(for: hitBug) {
+            let action = SKAction.run {
+                self.sceneView.session.remove(anchor: anchor)
+            }
+            let group = SKAction.group([killSound, action])
+            let sequence = [SKAction.wait(forDuration: 0.3), group]
+            hitBug.run(SKAction.sequence(sequence))
+        }
             
             
             
         }
     }
-}
+//}
