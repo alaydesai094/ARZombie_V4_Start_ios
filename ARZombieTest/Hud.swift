@@ -9,9 +9,9 @@
 import SpriteKit
 import ARKit
 
-class GameScene: SKScene {
+class Hud: SKScene {
     
-   
+    
     var sceneView: ARSKView {
         return view as! ARSKView
     }
@@ -24,22 +24,13 @@ class GameScene: SKScene {
     var showhalfblood: Bool! = false;
     var showEmptyblood: Bool! = false;
     
-     var gem: Bool! = false;
-
-    //---------------------------------
-    // Levels
-    //---------------------------------
-    
-    var StartGame: Bool! = false;
-    var level1: Bool! = false;
-     var disp: Bool! = false;
+    var nextLevel: Bool! = false;
     
     
     
-   //Button
+    //Button
     let exitbtn:SKSpriteNode = SKSpriteNode(imageNamed:"exitbtn")
     let nightvision:SKSpriteNode = SKSpriteNode(imageNamed:"night")
-    let nextl:SKSpriteNode = SKSpriteNode(imageNamed:"next")
     
     
     //Sound
@@ -48,7 +39,7 @@ class GameScene: SKScene {
     //Timer Variable
     var sec = 60
     var min = 1
-   
+    
     
     
     
@@ -59,12 +50,12 @@ class GameScene: SKScene {
     
     var TouchCount = 0
     
-     var creationTime : TimeInterval = 0
+    var creationTime : TimeInterval = 0
     
     
-     let timer = SKLabelNode(text: " ")
+    let timer = SKLabelNode(text: " ")
     
-     let Loose = SKLabelNode(text: "You loose")
+    let Loose = SKLabelNode(text: "You loose")
     
     let ghostsLabel = SKLabelNode(text: "Zombies")
     let killsLabel = SKLabelNode(text: "No.of Kills")
@@ -73,9 +64,9 @@ class GameScene: SKScene {
     let numberOfHealthsLabel = SKLabelNode(text: "5")
     let numberOfKillsLabel = SKLabelNode(text: "0")
     
-     let health100:SKSpriteNode = SKSpriteNode(imageNamed:"health100p")
-     let health50:SKSpriteNode = SKSpriteNode(imageNamed:"health50p")
-     let health10:SKSpriteNode = SKSpriteNode(imageNamed:"health10p")
+    let health100:SKSpriteNode = SKSpriteNode(imageNamed:"health100p")
+    let health50:SKSpriteNode = SKSpriteNode(imageNamed:"health50p")
+    let health10:SKSpriteNode = SKSpriteNode(imageNamed:"health10p")
     
     
     
@@ -105,8 +96,6 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         
         
-        nextl.name = "Nextl"
-      
         
         
         timer.fontSize = 30
@@ -118,12 +107,12 @@ class GameScene: SKScene {
         
         nightvision.name = "nightvision"
         
-          exitbtn.position = CGPoint(x:300, y:550)
-          addChild(exitbtn)
+        exitbtn.position = CGPoint(x:300, y:550)
+        addChild(exitbtn)
         
         health100.position = CGPoint(x:-300, y:550)
-         health50.position = CGPoint(x:-300, y:550)
-         health10.position = CGPoint(x:-300, y:550)
+        health50.position = CGPoint(x:-300, y:550)
+        health10.position = CGPoint(x:-300, y:550)
         addChild(health100)
         
         nightvision.position = CGPoint(x:-300, y:550)
@@ -133,7 +122,7 @@ class GameScene: SKScene {
         Loose.fontSize = 30
         Loose.fontName = "DevanagariSangamMN-Bold"
         Loose.color = .white
-       
+        
         
         
         ghostsLabel.fontSize = 30
@@ -147,7 +136,7 @@ class GameScene: SKScene {
         numberOfGhostsLabel.fontName = "DevanagariSangamMN-Bold"
         numberOfGhostsLabel.color = .white
         numberOfGhostsLabel.position = CGPoint(x: -0, y: -550)
-       
+        
         addChild(numberOfGhostsLabel)
         
         
@@ -156,7 +145,7 @@ class GameScene: SKScene {
         killsLabel.color = .white
         killsLabel.position = CGPoint(x:150, y: -500)
         
-          addChild(killsLabel)
+        addChild(killsLabel)
         
         numberOfKillsLabel.fontSize = 30
         numberOfKillsLabel.fontName = "DevanagariSangamMN-Bold"
@@ -184,7 +173,7 @@ class GameScene: SKScene {
         
         sight = SKSpriteNode(imageNamed: "sight")
         addChild(sight)
-      
+        
         
     }
     
@@ -194,7 +183,7 @@ class GameScene: SKScene {
     }
     
     
-   
+    
     
     func createZombieAnchor(){
         guard let sceneView = self.view as? ARSKView else {
@@ -206,24 +195,24 @@ class GameScene: SKScene {
         
         // Create a rotation matrix in the X-axis
         let rotateX = simd_float4x4(SCNMatrix4MakeRotation(_360degrees * randomFloat(min: 0.0, max: 1.0), 1, 0, 0))
-
+        
         // Create a rotation matrix in the Y-axis
         let rotateY = simd_float4x4(SCNMatrix4MakeRotation(_360degrees * randomFloat(min: 0.0, max: 1.0), 0, 1, 0))
-
+        
         // Combine both rotation matrices
         let rotation = simd_mul(rotateX, rotateY)
-
+        
         // Create a translation matrix in the Z-axis with a value between 1 and 2 meters
         var translation = matrix_identity_float4x4
-       // translation.columns.3.z = -1 - randomFloat(min: 0.0, max: 1.0)
+        // translation.columns.3.z = -1 - randomFloat(min: 0.0, max: 1.0)
         translation.columns.3.z = -0.3
-
+        
         // Combine the rotation and translation matrices
         let transform = simd_mul(rotation, translation)
-
+        
         // Create an anchor
         let anchor = ARAnchor(transform: transform)
-
+        
         // Add the anchor
         sceneView.session.add(anchor: anchor)
         
@@ -263,28 +252,43 @@ class GameScene: SKScene {
         }
         
     }
-
-
+    
+    
     
     
     override func update(_ currentTime: TimeInterval) {
         
-    
-        if(StartGame){
         
         if currentTime > creationTime {
-
+            
             createZombieAnchor()
             HealthCount = HealthCount - 1
             creationTime = currentTime + TimeInterval(randomFloat(min: 3.0, max: 6.0))
-        
-        }
             
+        }
         
         health50.removeFromParent()
         health10.removeFromParent()
         Loose.removeFromParent()
-       
+        
+        
+        
+        //            sec = sec - 1
+        //
+        //
+        //            if(sec == 0){
+        //                min = min - 1
+        //            }
+        //
+        //            if(sec == 0 && min == 0){
+        //
+        //                addChild(Loose)
+        //            }
+        //
+        //            timer.text = "\(min):\(sec)"
+        
+        
+        
         
         
         if(HealthCount <= 5 && HealthCount >= 1){
@@ -314,11 +318,15 @@ class GameScene: SKScene {
             showEmptyblood = false
             
         }
-
-        Night() // function to change color
         
-        } // startgame ends
         
+        
+        
+        //-----------------------------------
+        // Color Change
+        //-----------------------------------
+        
+        Night()
         
         
         
@@ -327,12 +335,12 @@ class GameScene: SKScene {
     }
     
     
-   
+    
     
     //--------------------------------------------------------------------------------------
     //MARK: Touch()
     //--------------------------------------------------------------------------------------
-  
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // Get the first touch
         guard let touch = touches.first else {
@@ -359,25 +367,22 @@ class GameScene: SKScene {
             //---------------------------
             // MARK: kill Zombie
             //--------------------------
-            if (node == nextl) {
+            if node.name == "nightvision" {
                 
-//                let firstScene = Level2(fileNamed: "Level2")
-//                let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.5)
-//                firstScene?.scaleMode = .aspectFill
-//                scene?.view?.presentScene(firstScene!, transition: transition)
-            
+                night = true;
+                
                 
             }
             
             
             
         }
-
         
-            let location = sight.position
-            let hitNodes = nodes(at: location)
         
-         var hitBug: SKNode?
+        let location = sight.position
+        let hitNodes = nodes(at: location)
+        
+        var hitBug: SKNode?
         
         for node in hitNodes {
             if node.name == "Attack" {
@@ -386,7 +391,7 @@ class GameScene: SKScene {
             }
         }
         
-
+        
         //run(Sounds.fire)
         if let hitBug = hitBug,
             let anchor = sceneView.anchor(for: hitBug) {
@@ -401,61 +406,13 @@ class GameScene: SKScene {
         }
         
         
-        if(ghostCount == 0) {
-            
-            StartGame = true;
-            
-        }
-        
-        
-        if(KillsCount == 4) {
-            
-            StartGame = false;
-            //level1 = true;
-            let firstScene = ChangeLevel(fileNamed: "ChangeLevel")
-            let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.5)
-            firstScene?.scaleMode = .aspectFill
-            scene?.view?.presentScene(firstScene!, transition: transition)
-            
+        if(KillsCount > 20) {
             
             
         }
         
         
-//        if(level1){
-//
-//            addChild(nextl)
-//
-//        }
-       
         
         
-        
-        
-        
-        
-        
-        
-        }
     }
-
-
-
-// -----------------------------------  THE END ---------------------------------------------------
-
-//   Notes:
-
-//            sec = sec - 1
-//
-//
-//            if(sec == 0){
-//                min = min - 1
-//            }
-//
-//            if(sec == 0 && min == 0){
-//
-//                addChild(Loose)
-//            }
-//
-//            timer.text = "\(min):\(sec)"
-
+}

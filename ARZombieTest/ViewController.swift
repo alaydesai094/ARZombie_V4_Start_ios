@@ -62,7 +62,7 @@ class ViewController: UIViewController, ARSKViewDelegate  {
         var dinoTextures:[SKTexture] = []
         for i in 1...6 {
             let fileName = "Attack\(i)"
-            print("Adding: \(fileName) to array")
+            //print("Adding: \(fileName) to array")
             dinoTextures.append(SKTexture(imageNamed: fileName))
         }
         
@@ -78,6 +78,9 @@ class ViewController: UIViewController, ARSKViewDelegate  {
         
         return zombie
     }
+    
+    
+    
     
     
     

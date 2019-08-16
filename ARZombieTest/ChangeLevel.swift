@@ -9,25 +9,23 @@
 import SpriteKit
 import ARKit
 
-class Scene: SKScene {
+class ChangeLevel: SKScene {
     
     //--------------------------
     
-    let mainbg:SKSpriteNode = SKSpriteNode(imageNamed:"mainbg")
-    let button = SKSpriteNode(imageNamed: "start")
-    
+   let levelup:SKSpriteNode = SKSpriteNode(imageNamed:"levelup")
     
     
     override func didMove(to view: SKView) {
         
-        mainbg.position = CGPoint(x:250, y:300)
-       addChild(mainbg)
+       
+        addChild(levelup)
         
-        
-        button.position = CGPoint(x:200, y:100)
+        let button = SKSpriteNode(imageNamed: "next2")
+         button.position = CGPoint(x:300, y:550)
         button.name = "next2"
         
-        addChild(button)
+        self.addChild(button)
         
         
     }
@@ -66,7 +64,7 @@ class Scene: SKScene {
             
             if node.name == "next2" {
                 
-                let firstScene = MainStoryLine(fileNamed: "MainStoryLine")
+                let firstScene = Level2Story(fileNamed: "Level2Story")
                 let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.5)
                 firstScene?.scaleMode = .aspectFill
                 scene?.view?.presentScene(firstScene!, transition: transition)
