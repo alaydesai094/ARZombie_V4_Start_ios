@@ -60,6 +60,7 @@ class Level2: SKScene {
     var TouchCount = 0
     
     var creationTime : TimeInterval = 0
+     var creationTimep : TimeInterval = 0
     
     
     let timer = SKLabelNode(text: " ")
@@ -222,6 +223,43 @@ class Level2: SKScene {
     }
     
     
+    func createPowerAnchor(){
+        guard let sceneView = self.view as? ARSKView else {
+            return
+        }
+        
+        // Define 360º in radians
+        let _360degrees = 2.0 * Float.pi
+        
+        // Create a rotation matrix in the X-axis
+        let rotateX = simd_float4x4(SCNMatrix4MakeRotation(_360degrees * randomFloat(min: 0.0, max: 1.0), 1, 0, 0))
+        
+        // Create a rotation matrix in the Y-axis
+        let rotateY = simd_float4x4(SCNMatrix4MakeRotation(_360degrees * randomFloat(min: 0.0, max: 1.0), 0, 1, 0))
+        
+        // Combine both rotation matrices
+        let rotation = simd_mul(rotateX, rotateY)
+        
+        // Create a translation matrix in the Z-axis with a value between 1 and 2 meters
+        var translation = matrix_identity_float4x4
+        // translation.columns.3.z = -1 - randomFloat(min: 0.0, max: 1.0)
+        translation.columns.3.z = -0.3
+        
+        // Combine the rotation and translation matrices
+        let transform = simd_mul(rotation, translation)
+        
+        // Create an anchor
+        let anchor = ARAnchor(transform: transform)
+        
+        // Add the anchor
+        sceneView.session.add(anchor: anchor)
+        
+        // Increment the counter
+        ghostCount += 1
+        
+    }
+    
+    
     
     
     
@@ -252,17 +290,26 @@ class Level2: SKScene {
         }
         
     }
-    
+   
     
     
     
     override func update(_ currentTime: TimeInterval) {
         
-        if currentTime > creationTime {
+//        if currentTime > creationTime {
+//
+//            createZombieAnchor()
+//            HealthCount = HealthCount - 1
+//            creationTime = currentTime + TimeInterval(randomFloat(min: 3.0, max: 6.0))
+//
+//        }
+        
+        if currentTime > creationTimep {
             
-            createZombieAnchor()
+            createPowerAnchor()
+            
             HealthCount = HealthCount - 1
-            creationTime = currentTime + TimeInterval(randomFloat(min: 2.0, max: 4.0))
+            creationTimep = currentTime + TimeInterval(randomFloat(min: 3.0, max: 6.0))
             
         }
         
@@ -329,7 +376,7 @@ class Level2: SKScene {
             TouchCount = TouchCount + 1;
             print(TouchCount)
             
-            if(TouchCount > 2){
+            if(TouchCount > 3){
                 
                 TouchCount = 0;
             }
@@ -355,6 +402,8 @@ class Level2: SKScene {
         
         var hitBug: SKNode?
         
+        
+        
         for node in hitNodes {
             if node.name == "Attack" {
                 hitBug = node
@@ -365,25 +414,34 @@ class Level2: SKScene {
         
         //run(Sounds.fire)
         if let hitBug = hitBug,
-            let anchor = sceneView.anchor(for: hitBug) {
-            let action = SKAction.run {
-                self.sceneView.session.remove(anchor: anchor)
+            let anchor = sceneView.anchor(for: hitBug)
+        {
+            if(TouchCount >= 3){
+            
+                let action = SKAction.run
+                {
+           
+                    self.sceneView.session.remove(anchor: anchor)
+            
+                }
+            
+                let group = SKAction.group([killSound, action])
+                let sequence = [SKAction.wait(forDuration: 0.3), group]
+                hitBug.run(SKAction.sequence(sequence))
+                ghostCount -= 1
+                KillsCount += 1
             }
-            let group = SKAction.group([killSound, action])
-            let sequence = [SKAction.wait(forDuration: 0.3), group]
-            hitBug.run(SKAction.sequence(sequence))
-            ghostCount -= 1
-            KillsCount += 1
+        
         }
         
         
-        if(KillsCount > 20) {
+        if(KillsCount > 4) {
             
-            let firstScene = GameScene(fileNamed: "GameScene")
+            let firstScene = ChangeToLevel3(fileNamed: "ChangeToLevel3")
             let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.5)
             firstScene?.scaleMode = .aspectFill
             scene?.view?.presentScene(firstScene!, transition: transition)
-            
+
             
         }
         
