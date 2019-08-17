@@ -60,19 +60,19 @@ class MainStoryLine: SKScene {
     let Page24 = SKLabelNode(text: "will be able to open the portal...")
     
     // Scene 3
-    let Page3 = SKLabelNode(text: "Hello citizens...")
-    let Page31 = SKLabelNode(text: "This is your President.. ")
-    let Page32 = SKLabelNode(text: "As you know the city is flooded with")
-    let Page33 = SKLabelNode(text: "Animated zombies all around..")
-    let Page34 = SKLabelNode(text: "Please be safe...")
+    let Page3 = SKLabelNode(text: "Hey..this is DR. Steve...")
+    let Page31 = SKLabelNode(text: "The city is infected..")
+    let Page32 = SKLabelNode(text: "I have given you special vaccine..")
+    let Page33 = SKLabelNode(text: "so that you can go out for missions...")
+    let Page34 = SKLabelNode(text: "the vaccine won't last long... so be safe")
     
     
     // Sceene 4
     let Page4 = SKLabelNode(text: "Hello Soldier...")
-    let Page41 = SKLabelNode(text: "This is Commander.. ")
+    let Page41 = SKLabelNode(text: "This is your Commander.. ")
     let Page42 = SKLabelNode(text: " Our mission : kill 15 zombies...")
     let Page43 = SKLabelNode(text: "that are surrounding the parameters ")
-    let Page44 = SKLabelNode(text: "and report back...")
+    let Page44 = SKLabelNode(text: "and report back before you get infected... ")
     
 
     

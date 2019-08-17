@@ -53,6 +53,9 @@ class ViewController: UIViewController, ARSKViewDelegate  {
     func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
         
         
+        
+        
+        
         let zombie:SKSpriteNode = SKSpriteNode(imageNamed:"Attack1")
         
         

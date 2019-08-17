@@ -73,6 +73,8 @@ class GameScene: SKScene {
     let numberOfHealthsLabel = SKLabelNode(text: "5")
     let numberOfKillsLabel = SKLabelNode(text: "0")
     
+    let vaccineLabel = SKLabelNode(text: "Vaccine Effect")
+    
      let health100:SKSpriteNode = SKSpriteNode(imageNamed:"health100p")
      let health50:SKSpriteNode = SKSpriteNode(imageNamed:"health50p")
      let health10:SKSpriteNode = SKSpriteNode(imageNamed:"health10p")
@@ -114,17 +116,25 @@ class GameScene: SKScene {
         timer.color = .white
         timer.text = "\(min):\(sec)"
         timer.position = CGPoint(x: -0, y: 550)
-        addChild(timer)
+        //addChild(timer)
         
         nightvision.name = "nightvision"
         
           exitbtn.position = CGPoint(x:300, y:550)
           addChild(exitbtn)
         
-        health100.position = CGPoint(x:-300, y:550)
-         health50.position = CGPoint(x:-300, y:550)
-         health10.position = CGPoint(x:-300, y:550)
+        health100.position = CGPoint(x:-300, y:500)
+         health50.position = CGPoint(x:-300, y:500)
+         health10.position = CGPoint(x:-300, y:500)
         addChild(health100)
+        
+        vaccineLabel.fontSize = 30
+        vaccineLabel.fontName = "DevanagariSangamMN-Bold"
+        vaccineLabel.color = .white
+        vaccineLabel.position = CGPoint(x: -280, y: 550)
+        
+        addChild(vaccineLabel)
+        
         
         nightvision.position = CGPoint(x:-300, y:550)
         //addChild(nightvision)
@@ -180,6 +190,9 @@ class GameScene: SKScene {
         numberOfHealthsLabel.position = CGPoint(x: 300, y: -550)
         
         addChild(numberOfHealthsLabel)
+        
+        
+       
         
         
         sight = SKSpriteNode(imageNamed: "sight")

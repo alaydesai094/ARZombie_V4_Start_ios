@@ -63,7 +63,7 @@ class Level2: SKScene {
      var creationTimep : TimeInterval = 0
     
     
-    let timer = SKLabelNode(text: " ")
+   // let timer = SKLabelNode(text: " ")
     
     let Loose = SKLabelNode(text: "You loose")
     
@@ -73,6 +73,8 @@ class Level2: SKScene {
     let numberOfGhostsLabel = SKLabelNode(text: "0")
     let numberOfHealthsLabel = SKLabelNode(text: "5")
     let numberOfKillsLabel = SKLabelNode(text: "0")
+    
+    let vaccineLabel = SKLabelNode(text: "Vaccine Effect")
     
     let health100:SKSpriteNode = SKSpriteNode(imageNamed:"health100p")
     let health50:SKSpriteNode = SKSpriteNode(imageNamed:"health50p")
@@ -111,10 +113,18 @@ class Level2: SKScene {
         exitbtn.position = CGPoint(x:300, y:550)
         addChild(exitbtn)
         
-        health100.position = CGPoint(x:-300, y:550)
-        health50.position = CGPoint(x:-300, y:550)
-        health10.position = CGPoint(x:-300, y:550)
+        health100.position = CGPoint(x:-300, y:500)
+        health50.position = CGPoint(x:-300, y:500)
+        health10.position = CGPoint(x:-300, y:500)
         addChild(health100)
+        
+        vaccineLabel.fontSize = 30
+        vaccineLabel.fontName = "DevanagariSangamMN-Bold"
+        vaccineLabel.color = .white
+        vaccineLabel.position = CGPoint(x: -280, y: 550)
+        
+        addChild(vaccineLabel)
+        
         
         nightvision.position = CGPoint(x:-300, y:550)
         //addChild(nightvision)

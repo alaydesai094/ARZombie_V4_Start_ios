@@ -21,7 +21,8 @@ class Scene: SKScene {
     override func didMove(to view: SKView) {
         
         mainbg.position = CGPoint(x:250, y:300)
-       addChild(mainbg)
+         mainbg.zPosition = -1
+        addChild(mainbg)
         
         
         button.position = CGPoint(x:200, y:100)

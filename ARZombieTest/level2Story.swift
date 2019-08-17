@@ -56,24 +56,24 @@ class Level2Story: SKScene {
     // Secene 2
     let Page2 = SKLabelNode(text: "we are getting closure to the gems..")
     let Page21 = SKLabelNode(text: "Keep your eyes open for the gems.")
-    let Page22 = SKLabelNode(text: "Also look out for the powerful zombies..")
-    let Page23 = SKLabelNode(text: "they are hard to kill")
-    let Page24 = SKLabelNode(text: "you can get infacted if your health is low ")
+    let Page22 = SKLabelNode(text: "Also look out for the zombies..")
+    let Page23 = SKLabelNode(text: "they are hard to kill now")
+    let Page24 = SKLabelNode(text: "you can get infacted if your vaccine is low ")
     
     // Scene 3
-    let Page3 = SKLabelNode(text: "Hello citizens...")
-    let Page31 = SKLabelNode(text: "We are trying our best to ")
-    let Page32 = SKLabelNode(text: "keep the city safe")
-    let Page33 = SKLabelNode(text: "please find the nearest militry shalters")
-    let Page34 = SKLabelNode(text: "to be safe from infection...")
+    let Page3 = SKLabelNode(text: "Hey...this is Dr Steve...")
+    let Page31 = SKLabelNode(text: "the infection is spreading faster")
+    let Page32 = SKLabelNode(text: "you cannot stay longer outside")
+    let Page33 = SKLabelNode(text: "Try to finish your mission ASAP..")
+    let Page34 = SKLabelNode(text: "or else you can loose your life...")
     
     
     // Sceene 4
     let Page4 = SKLabelNode(text: "Hello Soldier...")
-    let Page41 = SKLabelNode(text: "This is Captian America.. ")
-    let Page42 = SKLabelNode(text: " Our next mission : 1. kill the zombies...")
+    let Page41 = SKLabelNode(text: "This is your commander.. ")
+    let Page42 = SKLabelNode(text: " Our next mission : 1. kill 25 zombies...")
     let Page43 = SKLabelNode(text: "2. Collect the gem..")
-    let Page44 = SKLabelNode(text: "we are Brave soldiers and lets goo....!!")
+    let Page44 = SKLabelNode(text: "Lets gooo....!!")
     
     
     

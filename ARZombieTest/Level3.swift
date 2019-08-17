@@ -63,7 +63,7 @@ class Level3: SKScene {
     var creationTimep : TimeInterval = 0
     
     
-    let timer = SKLabelNode(text: " ")
+   // let timer = SKLabelNode(text: " ")
     
     let Loose = SKLabelNode(text: "You loose")
     
@@ -77,6 +77,8 @@ class Level3: SKScene {
     let health100:SKSpriteNode = SKSpriteNode(imageNamed:"health100p")
     let health50:SKSpriteNode = SKSpriteNode(imageNamed:"health50p")
     let health10:SKSpriteNode = SKSpriteNode(imageNamed:"health10p")
+    
+     let vaccineLabel = SKLabelNode(text: "Vaccine Effect")
     
     
     
@@ -111,10 +113,18 @@ class Level3: SKScene {
         exitbtn.position = CGPoint(x:300, y:550)
         addChild(exitbtn)
         
-        health100.position = CGPoint(x:-300, y:550)
-        health50.position = CGPoint(x:-300, y:550)
-        health10.position = CGPoint(x:-300, y:550)
+        health100.position = CGPoint(x:-300, y:500)
+        health50.position = CGPoint(x:-300, y:500)
+        health10.position = CGPoint(x:-300, y:500)
         addChild(health100)
+        
+        vaccineLabel.fontSize = 30
+        vaccineLabel.fontName = "DevanagariSangamMN-Bold"
+        vaccineLabel.color = .white
+        vaccineLabel.position = CGPoint(x: -280, y: 550)
+        
+        addChild(vaccineLabel)
+        
         
         nightvision.position = CGPoint(x:-300, y:550)
         //addChild(nightvision)
@@ -376,7 +386,7 @@ class Level3: SKScene {
             TouchCount = TouchCount + 1;
             print(TouchCount)
             
-            if(TouchCount > 3){
+            if(TouchCount > 4){
                 
                 TouchCount = 0;
             }
@@ -416,7 +426,7 @@ class Level3: SKScene {
         if let hitBug = hitBug,
             let anchor = sceneView.anchor(for: hitBug)
         {
-            if(TouchCount >= 3){
+            if(TouchCount >= 4){
                 
                 let action = SKAction.run
                 {
