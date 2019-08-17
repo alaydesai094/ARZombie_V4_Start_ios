@@ -23,6 +23,7 @@ class Level3: SKScene {
     var night: Bool! = false;
     var showhalfblood: Bool! = false;
     var showEmptyblood: Bool! = false;
+     var restart: Bool! = false;
     
     var gem: Bool! = false;
     
@@ -49,6 +50,9 @@ class Level3: SKScene {
     var sec = 60
     var min = 1
     
+    var sg = 0
+    
+    
     
     
     
@@ -60,7 +64,6 @@ class Level3: SKScene {
     var TouchCount = 0
     
     var creationTime : TimeInterval = 0
-    var creationTimep : TimeInterval = 0
     
     
    // let timer = SKLabelNode(text: " ")
@@ -80,6 +83,9 @@ class Level3: SKScene {
     
      let vaccineLabel = SKLabelNode(text: "Vaccine Effect")
     
+    
+    let blood:SKSpriteNode = SKSpriteNode(imageNamed:"blood")
+    let wasted:SKSpriteNode = SKSpriteNode(imageNamed:"wasted")
     
     
     var ghostCount = 0 {
@@ -125,6 +131,7 @@ class Level3: SKScene {
         
         addChild(vaccineLabel)
         
+        blood.position = CGPoint(x:-200, y:500)
         
         nightvision.position = CGPoint(x:-300, y:550)
         //addChild(nightvision)
@@ -233,41 +240,6 @@ class Level3: SKScene {
     }
     
     
-    func createPowerAnchor(){
-        guard let sceneView = self.view as? ARSKView else {
-            return
-        }
-        
-        // Define 360º in radians
-        let _360degrees = 2.0 * Float.pi
-        
-        // Create a rotation matrix in the X-axis
-        let rotateX = simd_float4x4(SCNMatrix4MakeRotation(_360degrees * randomFloat(min: 0.0, max: 1.0), 1, 0, 0))
-        
-        // Create a rotation matrix in the Y-axis
-        let rotateY = simd_float4x4(SCNMatrix4MakeRotation(_360degrees * randomFloat(min: 0.0, max: 1.0), 0, 1, 0))
-        
-        // Combine both rotation matrices
-        let rotation = simd_mul(rotateX, rotateY)
-        
-        // Create a translation matrix in the Z-axis with a value between 1 and 2 meters
-        var translation = matrix_identity_float4x4
-        // translation.columns.3.z = -1 - randomFloat(min: 0.0, max: 1.0)
-        translation.columns.3.z = -0.3
-        
-        // Combine the rotation and translation matrices
-        let transform = simd_mul(rotation, translation)
-        
-        // Create an anchor
-        let anchor = ARAnchor(transform: transform)
-        
-        // Add the anchor
-        sceneView.session.add(anchor: anchor)
-        
-        // Increment the counter
-        ghostCount += 1
-        
-    }
     
     
     
@@ -306,28 +278,25 @@ class Level3: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         
-        //        if currentTime > creationTime {
-        //
-        //            createZombieAnchor()
-        //            HealthCount = HealthCount - 1
-        //            creationTime = currentTime + TimeInterval(randomFloat(min: 3.0, max: 6.0))
-        //
-        //        }
         
-        if currentTime > creationTimep {
+        if(StartGame){
             
-            createPowerAnchor()
-            
-            HealthCount = HealthCount - 1
-            creationTimep = currentTime + TimeInterval(randomFloat(min: 3.0, max: 6.0))
-            
-        }
+                if currentTime > creationTime {
+        
+                    createZombieAnchor()
+                    HealthCount = HealthCount - 1
+                    creationTime = currentTime + TimeInterval(randomFloat(min: 3.0, max: 6.0))
+        
+                }
+        
+       
         
         
         health50.removeFromParent()
         health10.removeFromParent()
         Loose.removeFromParent()
-        
+            blood.removeFromParent()
+            wasted.removeFromParent()
         
         if(HealthCount <= 5 && HealthCount >= 1){
             health100.removeFromParent()
@@ -349,8 +318,13 @@ class Level3: SKScene {
             
             showEmptyblood = true
             
+           
             if(showEmptyblood){
                 addChild(health10)
+                addChild(blood)
+                addChild(wasted)
+                restart = true
+                StartGame = false
             }
             
             showEmptyblood = false
@@ -358,7 +332,8 @@ class Level3: SKScene {
         }
         
         Night() // function to change color
-        
+       
+        } // startgame ends
         
     }
     
@@ -455,6 +430,20 @@ class Level3: SKScene {
             
         }
         
+        if(sg == 0) {
+            
+            StartGame = true;
+            sg = sg + 1
+        }
+       
+        if(restart){
+            let firstScene = RestartLevel3(fileNamed: "RestartLevel3")
+            let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.5)
+            firstScene?.scaleMode = .aspectFill
+            scene?.view?.presentScene(firstScene!, transition: transition)
+            
+            
+        }
         
         
         

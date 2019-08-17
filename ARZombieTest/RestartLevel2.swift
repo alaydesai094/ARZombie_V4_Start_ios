@@ -1,3 +1,4 @@
+
 //
 //  Scene.swift
 //  ARSpriteKit
@@ -9,20 +10,39 @@
 import SpriteKit
 import ARKit
 
-class ChangeLevel: SKScene {
+class RestartLevel2: SKScene {
     
     //--------------------------
     
-   let levelup:SKSpriteNode = SKSpriteNode(imageNamed:"levelup")
+    let restartLabel = SKLabelNode(text: "Restart")
+    
+     let blood:SKSpriteNode = SKSpriteNode(imageNamed:"blood")
     
     
     override func didMove(to view: SKView) {
         
-        addChild(levelup)
+        restartLabel.fontSize = 60
+        restartLabel.fontName = "DevanagariSangamMN-Bold"
+        restartLabel.color = .white
+        addChild(restartLabel)
         
-        let button = SKSpriteNode(imageNamed: "next2")
-         button.position = CGPoint(x:300, y:550)
-        button.name = "next2"
+        blood.position = CGPoint(x:-200, y:500)
+        addChild(blood)
+
+        
+        let restartbutton = SKSpriteNode(imageNamed: "restart")
+        restartbutton.position = CGPoint(x: 0 , y: -100 )
+        restartbutton.name = "next2"
+        
+        
+        self.addChild(restartbutton)
+        
+        
+        
+        
+        let button = SKSpriteNode(imageNamed: "exitbtn")
+        button.position = CGPoint(x:300, y:550)
+        
         
         self.addChild(button)
         
@@ -63,7 +83,7 @@ class ChangeLevel: SKScene {
             
             if node.name == "next2" {
                 
-                let firstScene = Level2Story(fileNamed: "Level2Story")
+                let firstScene = Level2(fileNamed: "Level2")
                 let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.5)
                 firstScene?.scaleMode = .aspectFill
                 scene?.view?.presentScene(firstScene!, transition: transition)

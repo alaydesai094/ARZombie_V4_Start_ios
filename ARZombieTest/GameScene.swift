@@ -23,6 +23,7 @@ class GameScene: SKScene {
     var night: Bool! = false;
     var showhalfblood: Bool! = false;
     var showEmptyblood: Bool! = false;
+     var restart: Bool! = false;
     
      var gem: Bool! = false;
 
@@ -36,6 +37,8 @@ class GameScene: SKScene {
     
     
     
+    
+    
    //Button
     let exitbtn:SKSpriteNode = SKSpriteNode(imageNamed:"exitbtn")
     let nightvision:SKSpriteNode = SKSpriteNode(imageNamed:"night")
@@ -44,10 +47,13 @@ class GameScene: SKScene {
     
     //Sound
     let killSound = SKAction.playSoundFileNamed("ghost", waitForCompletion: false)
+    let loseSound = SKAction.playSoundFileNamed("lose", waitForCompletion: false)
     
     //Timer Variable
     var sec = 60
     var min = 1
+    
+    var sg = 0
    
     
     
@@ -78,6 +84,9 @@ class GameScene: SKScene {
      let health100:SKSpriteNode = SKSpriteNode(imageNamed:"health100p")
      let health50:SKSpriteNode = SKSpriteNode(imageNamed:"health50p")
      let health10:SKSpriteNode = SKSpriteNode(imageNamed:"health10p")
+    
+     let blood:SKSpriteNode = SKSpriteNode(imageNamed:"blood")
+      let wasted:SKSpriteNode = SKSpriteNode(imageNamed:"wasted")
     
     
     
@@ -126,7 +135,11 @@ class GameScene: SKScene {
         health100.position = CGPoint(x:-300, y:500)
          health50.position = CGPoint(x:-300, y:500)
          health10.position = CGPoint(x:-300, y:500)
-        addChild(health100)
+        
+          addChild(health100)
+       
+        blood.position = CGPoint(x:-200, y:500)
+      
         
         vaccineLabel.fontSize = 30
         vaccineLabel.fontName = "DevanagariSangamMN-Bold"
@@ -296,7 +309,8 @@ class GameScene: SKScene {
         
         health50.removeFromParent()
         health10.removeFromParent()
-        Loose.removeFromParent()
+         blood.removeFromParent()
+            wasted.removeFromParent()
        
         
         
@@ -322,6 +336,10 @@ class GameScene: SKScene {
             
             if(showEmptyblood){
                 addChild(health10)
+                 addChild(blood)
+                addChild(wasted)
+                restart = true
+                StartGame = false
             }
             
             showEmptyblood = false
@@ -331,8 +349,7 @@ class GameScene: SKScene {
         Night() // function to change color
         
         } // startgame ends
-        
-        
+    
         
         
         
@@ -414,11 +431,12 @@ class GameScene: SKScene {
         }
         
         
-        if(ghostCount == 0) {
-            
+       
+        
+        if(sg == 0) {
             
             StartGame = true;
-            
+            sg = sg + 1
         }
         
         
@@ -436,11 +454,14 @@ class GameScene: SKScene {
         }
         
         
-//        if(level1){
-//
-//            addChild(nextl)
-//
-//        }
+        if(restart){
+            let firstScene = RestartScene(fileNamed: "RestartScene")
+            let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.5)
+            firstScene?.scaleMode = .aspectFill
+            scene?.view?.presentScene(firstScene!, transition: transition)
+           
+
+        }
        
         
         

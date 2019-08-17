@@ -23,6 +23,7 @@ class Level2: SKScene {
     var night: Bool! = false;
     var showhalfblood: Bool! = false;
     var showEmptyblood: Bool! = false;
+     var restart: Bool! = false;
     
     var gem: Bool! = false;
     
@@ -48,6 +49,8 @@ class Level2: SKScene {
     //Timer Variable
     var sec = 60
     var min = 1
+    
+    var sg = 0
     
     
     
@@ -79,6 +82,10 @@ class Level2: SKScene {
     let health100:SKSpriteNode = SKSpriteNode(imageNamed:"health100p")
     let health50:SKSpriteNode = SKSpriteNode(imageNamed:"health50p")
     let health10:SKSpriteNode = SKSpriteNode(imageNamed:"health10p")
+    
+    
+    let blood:SKSpriteNode = SKSpriteNode(imageNamed:"blood")
+    let wasted:SKSpriteNode = SKSpriteNode(imageNamed:"wasted")
     
     
     
@@ -124,6 +131,8 @@ class Level2: SKScene {
         vaccineLabel.position = CGPoint(x: -280, y: 550)
         
         addChild(vaccineLabel)
+        
+         blood.position = CGPoint(x:-200, y:500)
         
         
         nightvision.position = CGPoint(x:-300, y:550)
@@ -313,6 +322,7 @@ class Level2: SKScene {
 //            creationTime = currentTime + TimeInterval(randomFloat(min: 3.0, max: 6.0))
 //
 //        }
+         if(StartGame){
         
         if currentTime > creationTimep {
             
@@ -327,6 +337,8 @@ class Level2: SKScene {
         health50.removeFromParent()
         health10.removeFromParent()
         Loose.removeFromParent()
+        blood.removeFromParent()
+        wasted.removeFromParent()
         
         
         if(HealthCount <= 5 && HealthCount >= 1){
@@ -351,6 +363,10 @@ class Level2: SKScene {
             
             if(showEmptyblood){
                 addChild(health10)
+                addChild(blood)
+                addChild(wasted)
+                restart = true
+                StartGame = false
             }
             
             showEmptyblood = false
@@ -359,7 +375,7 @@ class Level2: SKScene {
         
         Night() // function to change color
         
-        
+        }//startgame end
     }
     
     
@@ -445,6 +461,15 @@ class Level2: SKScene {
         }
         
         
+        
+        if(sg == 0) {
+            
+            StartGame = true;
+            sg = sg + 1
+        }
+        
+        
+        
         if(KillsCount > 4) {
             
             let firstScene = ChangeToLevel3(fileNamed: "ChangeToLevel3")
@@ -452,6 +477,15 @@ class Level2: SKScene {
             firstScene?.scaleMode = .aspectFill
             scene?.view?.presentScene(firstScene!, transition: transition)
 
+            
+        }
+        
+        if(restart){
+            let firstScene = RestartLevel2(fileNamed: "RestartLevel2")
+            let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.5)
+            firstScene?.scaleMode = .aspectFill
+            scene?.view?.presentScene(firstScene!, transition: transition)
+            
             
         }
         
