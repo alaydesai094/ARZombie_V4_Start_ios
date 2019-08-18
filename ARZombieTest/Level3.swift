@@ -47,7 +47,7 @@ class Level3: SKScene {
     let killSound = SKAction.playSoundFileNamed("ghost", waitForCompletion: false)
     
     //Timer Variable
-    var sec = 60
+    var sec = 00
     var min = 1
     
     var sg = 0
@@ -63,7 +63,11 @@ class Level3: SKScene {
     
     var TouchCount = 0
     
+    let timer = SKLabelNode(text: " ")
+    
     var creationTime : TimeInterval = 0
+     var gameTime : TimeInterval = 0
+    var HealthTime : TimeInterval = 0
     
     
    // let timer = SKLabelNode(text: " ")
@@ -99,7 +103,7 @@ class Level3: SKScene {
             self.numberOfKillsLabel.text = "\(KillsCount)"
         }
     }
-    var HealthCount = 10 {
+    var HealthCount = 100 {
         didSet{
             self.numberOfHealthsLabel.text = "\(HealthCount)"
         }
@@ -115,6 +119,13 @@ class Level3: SKScene {
         
         
         nightvision.name = "nightvision"
+        
+        timer.fontSize = 30
+        timer.fontName = "DevanagariSangamMN-Bold"
+        timer.color = .white
+        timer.text = "\(min):\(sec)"
+        timer.position = CGPoint(x: -0, y: 550)
+        addChild(timer)
         
         exitbtn.position = CGPoint(x:300, y:550)
         addChild(exitbtn)
@@ -208,37 +219,24 @@ class Level3: SKScene {
             return
         }
         
-        // Define 360º in radians
-        let _360degrees = 2.0 * Float.pi
-        
-        // Create a rotation matrix in the X-axis
-        let rotateX = simd_float4x4(SCNMatrix4MakeRotation(_360degrees * randomFloat(min: 0.0, max: 1.0), 1, 0, 0))
-        
-        // Create a rotation matrix in the Y-axis
-        let rotateY = simd_float4x4(SCNMatrix4MakeRotation(_360degrees * randomFloat(min: 0.0, max: 1.0), 0, 1, 0))
-        
-        // Combine both rotation matrices
-        let rotation = simd_mul(rotateX, rotateY)
-        
-        // Create a translation matrix in the Z-axis with a value between 1 and 2 meters
-        var translation = matrix_identity_float4x4
-        // translation.columns.3.z = -1 - randomFloat(min: 0.0, max: 1.0)
-        translation.columns.3.z = -0.3
-        
-        // Combine the rotation and translation matrices
-        let transform = simd_mul(rotation, translation)
-        
-        // Create an anchor
-        let anchor = ARAnchor(transform: transform)
-        
-        // Add the anchor
-        sceneView.session.add(anchor: anchor)
-        
-        // Increment the counter
-        ghostCount += 1
-        
+        if let currentFrame = sceneView.session.currentFrame {
+            
+            var translation = matrix_identity_float4x4
+            translation.columns.3.x = randomFloat(min: -1, max: 1)
+            translation.columns.3.y = randomFloat(min: -1, max: 1)
+            translation.columns.3.z = randomFloat(min: -3, max: -0.2)
+            let transform = simd_mul(currentFrame.camera.transform, translation)
+            
+            // Create an anchor
+            let anchor = ARAnchor(transform: transform)
+            
+            // Add the anchor
+            sceneView.session.add(anchor: anchor)
+            
+            // Increment the counter
+            ghostCount += 1
+        }
     }
-    
     
     
     
@@ -281,24 +279,62 @@ class Level3: SKScene {
         
         if(StartGame){
             
+            
+            health50.removeFromParent()
+            health10.removeFromParent()
+            blood.removeFromParent()
+            wasted.removeFromParent()
+            
                 if currentTime > creationTime {
         
                     createZombieAnchor()
-                    HealthCount = HealthCount - 1
-                    creationTime = currentTime + TimeInterval(randomFloat(min: 3.0, max: 6.0))
+                    creationTime = currentTime + TimeInterval(randomFloat(min: 0.5, max: 1.0))
         
                 }
         
-       
+            if currentTime > gameTime {
+                
+                //HealthCount = HealthCount - 5
+                
+                
+                
+                if(sec == 0){
+                    sec = 60
+                    min = min - 1
+                }
+                
+                if(sec == 0 && min == 0){
+                    
+                    showEmptyblood = true
+                    
+                    if(showEmptyblood){
+                        addChild(health10)
+                        addChild(blood)
+                        addChild(wasted)
+                        restart = true
+                        StartGame = false
+                    }
+                    
+                    showEmptyblood = false
+                }
+                
+                sec = sec - 1
+                timer.text = "\(min):\(sec)"
+                
+                gameTime = currentTime + TimeInterval(randomFloat(min: 1.0, max: 1.0))
+                
+            }
+            
+            if currentTime > HealthTime {
+                
+                HealthCount = HealthCount - 5
+                HealthTime = currentTime + TimeInterval(randomFloat(min: 2.0, max: 3.0))
+                
+            }
+            
+            
         
-        
-        health50.removeFromParent()
-        health10.removeFromParent()
-        Loose.removeFromParent()
-            blood.removeFromParent()
-            wasted.removeFromParent()
-        
-        if(HealthCount <= 5 && HealthCount >= 1){
+        if(HealthCount <= 50 && HealthCount >= 22){
             health100.removeFromParent()
             
             showhalfblood = true
@@ -420,7 +456,7 @@ class Level3: SKScene {
         }
         
         
-        if(KillsCount > 4) {
+        if(KillsCount > 35) {
             
                         let firstScene = Portal(fileNamed: "Portal")
                         let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.5)
