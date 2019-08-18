@@ -17,6 +17,8 @@ class RestartLevel3: SKScene {
     let restartLabel = SKLabelNode(text: "Restart")
       let blood:SKSpriteNode = SKSpriteNode(imageNamed:"blood")
     
+     let wasted:SKSpriteNode = SKSpriteNode(imageNamed:"wasted")
+    
     override func didMove(to view: SKView) {
         
         restartLabel.fontSize = 60
@@ -27,6 +29,8 @@ class RestartLevel3: SKScene {
         blood.position = CGPoint(x:-200, y:500)
         addChild(blood)
 
+        wasted.position = CGPoint(x:0, y:100)
+        addChild(wasted)
         
         let restartbutton = SKSpriteNode(imageNamed: "restart")
         restartbutton.position = CGPoint(x: 0 , y: -100 )

@@ -9,7 +9,7 @@
 import SpriteKit
 import ARKit
 
-class Level2: SKScene {
+class GameTutorial: SKScene {
     
     
     var sceneView: ARSKView {
@@ -23,7 +23,7 @@ class Level2: SKScene {
     var night: Bool! = false;
     var showhalfblood: Bool! = false;
     var showEmptyblood: Bool! = false;
-     var restart: Bool! = false;
+    var restart: Bool! = false;
     
     var gem: Bool! = false;
     
@@ -33,7 +33,19 @@ class Level2: SKScene {
     
     var StartGame: Bool! = false;
     var level1: Bool! = false;
-    var level2: Bool! = false;
+    var disp: Bool! = false;
+    
+    
+    //-----------------------------
+    // MARK: Tutorial Flags
+    //-----------------------------
+    
+     var Tut1: Bool! = false;
+     var Tut2: Bool! = false;
+     var Tut3: Bool! = false;
+     var Tut4: Bool! = false;
+     var Tut5: Bool! = false;
+     var Tut6: Bool! = false;
     
     
     
@@ -41,14 +53,15 @@ class Level2: SKScene {
     //Button
     let exitbtn:SKSpriteNode = SKSpriteNode(imageNamed:"exitbtn")
     let nightvision:SKSpriteNode = SKSpriteNode(imageNamed:"night")
+    let nextl:SKSpriteNode = SKSpriteNode(imageNamed:"next")
     
     
     //Sound
     let killSound = SKAction.playSoundFileNamed("ghost", waitForCompletion: false)
+    let loseSound = SKAction.playSoundFileNamed("lose", waitForCompletion: false)
     
     //Timer Variable
-     let timer = SKLabelNode(text: " ")
-    var sec = 10
+    var sec = 30
     var min = 1
     
     var sg = 0
@@ -64,11 +77,11 @@ class Level2: SKScene {
     var TouchCount = 0
     
     var creationTime : TimeInterval = 0
-     var gameTime : TimeInterval = 0
-     var HealthTime : TimeInterval = 0
+    var gameTime : TimeInterval = 0
+    var HealthTime : TimeInterval = 0
     
     
-   // let timer = SKLabelNode(text: " ")
+    let timer = SKLabelNode(text: " ")
     
     let Loose = SKLabelNode(text: "You loose")
     
@@ -85,9 +98,32 @@ class Level2: SKScene {
     let health50:SKSpriteNode = SKSpriteNode(imageNamed:"health50p")
     let health10:SKSpriteNode = SKSpriteNode(imageNamed:"health10p")
     
-    
     let blood:SKSpriteNode = SKSpriteNode(imageNamed:"blood")
     let wasted:SKSpriteNode = SKSpriteNode(imageNamed:"wasted")
+    
+    // Tutorial fingers
+   
+    let Vaccine:SKSpriteNode = SKSpriteNode(imageNamed:"fingerup")
+     let VaccineTut = SKLabelNode(text: "This Is Vaccine..!!")
+    let VaccineTut2 = SKLabelNode(text: "Try not to run out of it...!")
+    let VaccineTut3 = SKLabelNode(text: "Tap on the finger for next... ")
+    
+    let figTimer:SKSpriteNode = SKSpriteNode(imageNamed:"fingerup")
+    let TimerTut = SKLabelNode(text: "This Is Game Timmer..!!")
+    let TimerTut2 = SKLabelNode(text: "Try not to run out of it too..!!")
+    
+    let figZombie:SKSpriteNode = SKSpriteNode(imageNamed:"fingerdown")
+    let ZombieTut = SKLabelNode(text: "This Is Zombie Count..!!")
+    let ZombieTut2 = SKLabelNode(text: "Shows The no. of zombies around you..!!")
+    
+    let figHealth:SKSpriteNode = SKSpriteNode(imageNamed:"fingerdown")
+    let HealthTut = SKLabelNode(text: "This Is Health Count.!!")
+    let HealthTut2 = SKLabelNode(text: "Your health decreases as the time progresses.!!")
+    
+    let figKill:SKSpriteNode = SKSpriteNode(imageNamed:"fingertap")
+    let KillTut = SKLabelNode(text: "Great..!! Now To Kill the Zombies..")
+    let KillTut2 = SKLabelNode(text: "Put the Target On the zombie and tap to kill..")
+    let KillTut3 = SKLabelNode(text: "start the game by tapping and Start Killing")
     
     
     
@@ -117,7 +153,11 @@ class Level2: SKScene {
     override func didMove(to view: SKView) {
         
         
-        timer.fontSize = 40
+        nextl.name = "Nextl"
+        
+        
+        
+        timer.fontSize = 50
         timer.fontName = "DevanagariSangamMN-Bold"
         timer.color = .white
         timer.text = "\(min):\(sec)"
@@ -132,16 +172,19 @@ class Level2: SKScene {
         health100.position = CGPoint(x:-300, y:500)
         health50.position = CGPoint(x:-300, y:500)
         health10.position = CGPoint(x:-300, y:500)
+        
         addChild(health100)
+        
+        blood.position = CGPoint(x:-200, y:500)
+        
         
         vaccineLabel.fontSize = 40
         vaccineLabel.fontName = "DevanagariSangamMN-Bold"
         vaccineLabel.color = .white
-        vaccineLabel.position = CGPoint(x: -280, y: 550)
+        vaccineLabel.position = CGPoint(x: -280, y:550)
         
         addChild(vaccineLabel)
         
-         blood.position = CGPoint(x:-200, y:500)
         
         
         nightvision.position = CGPoint(x:-300, y:550)
@@ -200,6 +243,82 @@ class Level2: SKScene {
         addChild(numberOfHealthsLabel)
         
         
+        // tutorial Nodes
+        
+        Vaccine.position = CGPoint(x: -280, y: 350)
+        
+        VaccineTut.fontSize = 40
+        VaccineTut.fontName = "DevanagariSangamMN-Bold"
+        VaccineTut.color = .white
+        
+        VaccineTut2.fontSize = 40
+        VaccineTut2.fontName = "DevanagariSangamMN-Bold"
+        VaccineTut2.color = .white
+        VaccineTut2.position = CGPoint(x:0, y:-50)
+        
+        VaccineTut3.fontSize = 40
+        VaccineTut3.fontName = "DevanagariSangamMN-Bold"
+        VaccineTut3.color = .white
+        VaccineTut3.position = CGPoint(x:0, y:-100)
+        
+        
+        figTimer.position = CGPoint(x: -0, y: 450)
+        
+        TimerTut.fontSize = 40
+        TimerTut.fontName = "DevanagariSangamMN-Bold"
+        TimerTut.color = .white
+        
+        TimerTut2.fontSize = 40
+        TimerTut2.fontName = "DevanagariSangamMN-Bold"
+        TimerTut2.color = .white
+        TimerTut2.position = CGPoint(x:0, y:-50)
+        
+        
+        figZombie.position = CGPoint(x: -0, y: -400)
+        
+        ZombieTut.fontSize = 40
+        ZombieTut.fontName = "DevanagariSangamMN-Bold"
+        ZombieTut.color = .white
+        
+        ZombieTut2.fontSize = 40
+        ZombieTut2.fontName = "DevanagariSangamMN-Bold"
+        ZombieTut2.color = .white
+        ZombieTut2.position = CGPoint(x:0, y:-50)
+        
+        
+      
+        figHealth.position = CGPoint(x: 300, y: -400)
+        
+        HealthTut.fontSize = 40
+        HealthTut.fontName = "DevanagariSangamMN-Bold"
+        HealthTut.color = .white
+        
+        HealthTut2.fontSize = 40
+        HealthTut2.fontName = "DevanagariSangamMN-Bold"
+        HealthTut2.color = .white
+         HealthTut2.position = CGPoint(x:0, y:-50)
+        
+        
+        figKill.position = CGPoint(x: 0, y: -100)
+        
+        KillTut.fontSize = 40
+        KillTut.fontName = "DevanagariSangamMN-Bold"
+        KillTut.color = .white
+        KillTut.position = CGPoint(x:0, y:-100)
+        
+        KillTut2.fontSize = 40
+        KillTut2.fontName = "DevanagariSangamMN-Bold"
+        KillTut2.color = .white
+        KillTut2.position = CGPoint(x:0, y:-150)
+        
+        
+        KillTut3.fontSize = 40
+        KillTut3.fontName = "DevanagariSangamMN-Bold"
+        KillTut3.color = .white
+        KillTut3.position = CGPoint(x:0, y:-200)
+        
+        
+        
         sight = SKSpriteNode(imageNamed: "sight")
         addChild(sight)
         
@@ -210,6 +329,7 @@ class Level2: SKScene {
     func randomFloat(min: Float, max: Float) -> Float {
         return (Float(arc4random()) / 0xFFFFFFFF) * (max - min) + min
     }
+    
     
     
     
@@ -268,114 +388,118 @@ class Level2: SKScene {
         }
         
     }
-   
+    
     
     
     
     override func update(_ currentTime: TimeInterval) {
         
-//        if currentTime > creationTime {
-//
-//            createZombieAnchor()
-//            HealthCount = HealthCount - 1
-//            creationTime = currentTime + TimeInterval(randomFloat(min: 3.0, max: 6.0))
-//
-//        }
         
-         if(StartGame){
+        if(StartGame){
             
             
             health50.removeFromParent()
             health10.removeFromParent()
-            Loose.removeFromParent()
             blood.removeFromParent()
             wasted.removeFromParent()
-        
-        if currentTime > creationTime {
             
-           createZombieAnchor()
-    
-            creationTime = currentTime + TimeInterval(randomFloat(min: 1.0, max: 2.0))
+            figKill.removeFromParent()
+            KillTut.removeFromParent()
+            KillTut2.removeFromParent()
+            KillTut3.removeFromParent()
             
-        }
+            if currentTime > creationTime {
+                
+                createZombieAnchor()
+                creationTime = currentTime + TimeInterval(randomFloat(min: 2.0, max: 4.0))
+                
+            }
             
-            
-        if currentTime > gameTime {
-            
-            
-                        if(sec == 0){
-                            sec = 60
-                            min = min - 1
-                            }
-            
-                    if(sec == 0 && min == 0){
-                        
-                        showEmptyblood = true
-                        
-                        if(showEmptyblood){
-                            addChild(health10)
-                            addChild(blood)
-                            addChild(wasted)
-                            restart = true
-                            StartGame = false
-                        }
-                        
-                        showEmptyblood = false
+            if currentTime > gameTime {
+                
+                
+                
+                
+                
+                if(sec == 0){
+                    sec = 60
+                    min = min - 1
+                }
+                
+                if(sec == 0 && min == 0){
+                    
+                    showEmptyblood = true
+                    
+                    if(showEmptyblood){
+                        addChild(health10)
+                        addChild(blood)
+                        addChild(wasted)
+                        restart = true
+                        StartGame = false
                     }
-            
-            sec = sec - 1
-            timer.text = "\(min):\(sec)"
-            
+                    
+                    showEmptyblood = false
+                }
+                
+                sec = sec - 1
+                timer.text = "\(min):\(sec)"
+                
                 gameTime = currentTime + TimeInterval(randomFloat(min: 1.0, max: 2.0))
                 
             }
-        
             
             if currentTime > HealthTime {
                 
                 HealthCount = HealthCount - 5
-                HealthTime = currentTime + TimeInterval(randomFloat(min: 2.0, max: 4.0))
+                HealthTime = currentTime + TimeInterval(randomFloat(min: 3.0, max: 6.0))
                 
             }
-        
-       
-        
-        
-        if(HealthCount <= 50 && HealthCount >= 1){
-            health100.removeFromParent()
             
-            showhalfblood = true
             
-            if(showhalfblood){
-                addChild(health50)
+            if(HealthCount <= 50 && HealthCount >= 2){
+                health100.removeFromParent()
+                
+                showhalfblood = true
+                
+                if(showhalfblood){
+                    addChild(health50)
+                }
+                
+                showhalfblood = false
+                //health50.removeFromParent()
+                
+                
             }
             
-            showhalfblood = false
-            //health50.removeFromParent()
-            
-            
-        }
-        
-        if(HealthCount <= 1 ){
-            health50.removeFromParent()
-            
-            showEmptyblood = true
-            
-            if(showEmptyblood){
-                addChild(health10)
-                addChild(blood)
-                addChild(wasted)
-                restart = true
-                StartGame = false
+            if(HealthCount <= 1 ){
+                health50.removeFromParent()
+                
+                showEmptyblood = true
+                
+                if(showEmptyblood){
+                    addChild(health10)
+                    addChild(blood)
+                    addChild(wasted)
+                    restart = true
+                    StartGame = false
+                }
+                
+                showEmptyblood = false
+                
             }
             
-            showEmptyblood = false
+            if(ghostCount <= 0 ){
+                
+                ghostCount = 0
+            }
             
-        }
+            
+            
+            Night() // function to change color
+            
+        } // startgame ends
         
-        Night() // function to change color
         
-        }//startgame end
     }
     
     
@@ -402,7 +526,7 @@ class Level2: SKScene {
             TouchCount = TouchCount + 1;
             print(TouchCount)
             
-            if(TouchCount > 3){
+            if(TouchCount > 2){
                 
                 TouchCount = 0;
             }
@@ -411,12 +535,34 @@ class Level2: SKScene {
             //---------------------------
             // MARK: kill Zombie
             //--------------------------
-            if node.name == "nightvision" {
+            if (node == Vaccine) {
                 
-                night = true;
-                
-                
+                Tut2 = true
             }
+            else{ }
+            
+            if (node == figTimer) {
+                
+                Tut3 = true
+            }
+            else{ }
+            
+            if (node == figZombie) {
+                
+                Tut4 = true
+            }
+            else{ }
+            if (node == figHealth) {
+                
+                Tut5 = true
+            }
+            else{ }
+            
+            if (node == figKill) {
+                
+                StartGame = true
+            }
+            else{ }
             
             
             
@@ -428,8 +574,6 @@ class Level2: SKScene {
         
         var hitBug: SKNode?
         
-        
-        
         for node in hitNodes {
             if node.name == "Attack" {
                 hitBug = node
@@ -440,54 +584,133 @@ class Level2: SKScene {
         
         //run(Sounds.fire)
         if let hitBug = hitBug,
-            let anchor = sceneView.anchor(for: hitBug)
-        {
-            if(TouchCount >= 3){
-            
-                let action = SKAction.run
-                {
-           
-                    self.sceneView.session.remove(anchor: anchor)
-            
-                }
-            
-                let group = SKAction.group([killSound, action])
-                let sequence = [SKAction.wait(forDuration: 0.3), group]
-                hitBug.run(SKAction.sequence(sequence))
-                ghostCount -= 1
-                KillsCount += 1
+            let anchor = sceneView.anchor(for: hitBug) {
+            let action = SKAction.run {
+                self.sceneView.session.remove(anchor: anchor)
             }
-        
+            let group = SKAction.group([killSound, action])
+            let sequence = [SKAction.wait(forDuration: 0.3), group]
+            hitBug.run(SKAction.sequence(sequence))
+            ghostCount -= 1
+            KillsCount += 1
         }
+        
         
         
         
         if(sg == 0) {
             
-            StartGame = true;
+            Tut1 = true
             sg = sg + 1
         }
         
         
-        
-        if(KillsCount > 25) {
+        if(KillsCount == 5) {
             
-            let firstScene = ChangeToLevel3(fileNamed: "ChangeToLevel3")
+            StartGame = false;
+            //level1 = true;
+            let firstScene = ChangeToMainGame(fileNamed: "ChangeToMainGame")
             let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.5)
             firstScene?.scaleMode = .aspectFill
             scene?.view?.presentScene(firstScene!, transition: transition)
-
+            
+            
             
         }
+        
         
         if(restart){
-            let firstScene = RestartLevel2(fileNamed: "RestartLevel2")
+            let firstScene = RestartScene(fileNamed: "RestartScene")
             let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.5)
             firstScene?.scaleMode = .aspectFill
             scene?.view?.presentScene(firstScene!, transition: transition)
             
             
         }
+        
+        if(Tut1){
+            
+            addChild(Vaccine)
+            addChild(VaccineTut)
+            addChild(VaccineTut2)
+             addChild(VaccineTut3)
+            
+            Tut1 = false
+           
+            
+        }
+        
+        if(Tut2){
+            
+             Vaccine.removeFromParent()
+             VaccineTut.removeFromParent()
+             VaccineTut2.removeFromParent()
+             VaccineTut3.removeFromParent()
+            
+            addChild(figTimer)
+            addChild(TimerTut)
+             addChild(TimerTut2)
+            
+            Tut2 = false
+            
+        }
+        
+        if(Tut3){
+            
+            
+            
+            figTimer.removeFromParent()
+            TimerTut.removeFromParent()
+            TimerTut2.removeFromParent()
+            
+            addChild(figZombie)
+            addChild(ZombieTut)
+             addChild(ZombieTut2)
+            
+            Tut3 = false
+            
+        }
+        
+        if(Tut4){
+            
+            
+            
+            figZombie.removeFromParent()
+            ZombieTut.removeFromParent()
+            ZombieTut2.removeFromParent()
+            
+            addChild(figHealth)
+            addChild(HealthTut)
+             addChild(HealthTut2)
+            
+            
+            Tut4 = false
+        }
+        
+        if(Tut5){
+            
+          
+            
+            figHealth.removeFromParent()
+            HealthTut.removeFromParent()
+            HealthTut2.removeFromParent()
+
+            
+            addChild(figKill)
+            addChild(KillTut)
+            addChild(KillTut2)
+            addChild(KillTut3)
+            
+            Tut5 = false
+           
+            
+        }
+        
+        
+        
+        
+        
+        
         
         
         
@@ -500,20 +723,3 @@ class Level2: SKScene {
 
 
 // -----------------------------------  THE END ---------------------------------------------------
-
-//   Notes:
-
-//            sec = sec - 1
-//
-//
-//            if(sec == 0){
-//                min = min - 1
-//            }
-//
-//            if(sec == 0 && min == 0){
-//
-//                addChild(Loose)
-//            }
-//
-//            timer.text = "\(min):\(sec)"
-

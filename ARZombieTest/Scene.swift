@@ -67,7 +67,7 @@ class Scene: SKScene {
             
             if node.name == "next2" {
                 
-                let firstScene = MainStoryLine(fileNamed: "MainStoryLine")
+                let firstScene = GameTutorialStoryLine(fileNamed: "GameTutorialStoryLine")
                 let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.5)
                 firstScene?.scaleMode = .aspectFill
                 scene?.view?.presentScene(firstScene!, transition: transition)

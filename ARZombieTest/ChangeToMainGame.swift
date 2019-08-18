@@ -9,42 +9,20 @@
 import SpriteKit
 import ARKit
 
-class RestartScene: SKScene {
+class ChangeToMainGame: SKScene {
     
     //--------------------------
     
-       let restartLabel = SKLabelNode(text: "Restart")
-     let blood:SKSpriteNode = SKSpriteNode(imageNamed:"blood")
-    let wasted:SKSpriteNode = SKSpriteNode(imageNamed:"wasted")
-
+    let levelup:SKSpriteNode = SKSpriteNode(imageNamed:"levelup")
     
     
     override func didMove(to view: SKView) {
         
-        restartLabel.fontSize = 60
-        restartLabel.fontName = "DevanagariSangamMN-Bold"
-        restartLabel.color = .white
-        addChild(restartLabel)
+        addChild(levelup)
         
-         blood.position = CGPoint(x:-200, y:500)
-        addChild(blood)
-        
-          wasted.position = CGPoint(x:0, y:100)
-        addChild(wasted)
-        
-        let restartbutton = SKSpriteNode(imageNamed: "restart")
-        restartbutton.position = CGPoint(x: 0 , y: -100 )
-        restartbutton.name = "next2"
-        
-        
-        self.addChild(restartbutton)
-        
-        
-        
-        
-        let button = SKSpriteNode(imageNamed: "exitbtn")
+        let button = SKSpriteNode(imageNamed: "next2")
         button.position = CGPoint(x:300, y:550)
-      
+        button.name = "next2"
         
         self.addChild(button)
         
@@ -85,7 +63,7 @@ class RestartScene: SKScene {
             
             if node.name == "next2" {
                 
-                let firstScene = GameScene(fileNamed: "GameScene")
+                let firstScene = MainStoryLine(fileNamed: "MainStoryLine")
                 let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.5)
                 firstScene?.scaleMode = .aspectFill
                 scene?.view?.presentScene(firstScene!, transition: transition)

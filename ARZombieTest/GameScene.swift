@@ -39,6 +39,7 @@ class GameScene: SKScene {
     
     
     
+    
    //Button
     let exitbtn:SKSpriteNode = SKSpriteNode(imageNamed:"exitbtn")
     let nightvision:SKSpriteNode = SKSpriteNode(imageNamed:"night")
@@ -122,7 +123,7 @@ class GameScene: SKScene {
       
         
         
-        timer.fontSize = 30
+        timer.fontSize = 40
         timer.fontName = "DevanagariSangamMN-Bold"
         timer.color = .white
         timer.text = "\(min):\(sec)"
@@ -143,7 +144,7 @@ class GameScene: SKScene {
         blood.position = CGPoint(x:-200, y:500)
       
         
-        vaccineLabel.fontSize = 30
+        vaccineLabel.fontSize = 40
         vaccineLabel.fontName = "DevanagariSangamMN-Bold"
         vaccineLabel.color = .white
         vaccineLabel.position = CGPoint(x: -280, y: 550)
@@ -155,20 +156,20 @@ class GameScene: SKScene {
         //addChild(nightvision)
         
         
-        Loose.fontSize = 30
+        Loose.fontSize = 40
         Loose.fontName = "DevanagariSangamMN-Bold"
         Loose.color = .white
        
         
         
-        ghostsLabel.fontSize = 30
+        ghostsLabel.fontSize = 40
         ghostsLabel.fontName = "DevanagariSangamMN-Bold"
         ghostsLabel.color = .white
         ghostsLabel.position = CGPoint(x: -0, y: -500)
         
         addChild(ghostsLabel)
         
-        numberOfGhostsLabel.fontSize = 30
+        numberOfGhostsLabel.fontSize = 40
         numberOfGhostsLabel.fontName = "DevanagariSangamMN-Bold"
         numberOfGhostsLabel.color = .white
         numberOfGhostsLabel.position = CGPoint(x: -0, y: -550)
@@ -176,14 +177,14 @@ class GameScene: SKScene {
         addChild(numberOfGhostsLabel)
         
         
-        killsLabel.fontSize = 30
+        killsLabel.fontSize = 40
         killsLabel.fontName = "DevanagariSangamMN-Bold"
         killsLabel.color = .white
         killsLabel.position = CGPoint(x:150, y: -500)
         
           addChild(killsLabel)
         
-        numberOfKillsLabel.fontSize = 30
+        numberOfKillsLabel.fontSize = 40
         numberOfKillsLabel.fontName = "DevanagariSangamMN-Bold"
         numberOfKillsLabel.color = .white
         numberOfKillsLabel.position = CGPoint(x: 150, y: -550)
@@ -191,7 +192,7 @@ class GameScene: SKScene {
         addChild(numberOfKillsLabel)
         
         
-        HealthLabel.fontSize = 30
+        HealthLabel.fontSize = 40
         HealthLabel.fontName = "DevanagariSangamMN-Bold"
         HealthLabel.color = .white
         HealthLabel.position = CGPoint(x: 300, y: -500)
@@ -199,7 +200,7 @@ class GameScene: SKScene {
         addChild(HealthLabel)
         
         
-        numberOfHealthsLabel.fontSize = 30
+        numberOfHealthsLabel.fontSize = 40
         numberOfHealthsLabel.fontName = "DevanagariSangamMN-Bold"
         numberOfHealthsLabel.color = .white
         numberOfHealthsLabel.position = CGPoint(x: 300, y: -550)
@@ -374,6 +375,13 @@ class GameScene: SKScene {
             showEmptyblood = false
             
         }
+            
+            if(ghostCount <= 0 ){
+                
+                ghostCount = 0
+            }
+            
+            
 
         Night() // function to change color
         

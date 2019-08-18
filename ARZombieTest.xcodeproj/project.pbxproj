@@ -39,6 +39,12 @@
 		902180D723086E98000A8776 /* RestartLevel2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902180D623086E98000A8776 /* RestartLevel2.swift */; };
 		902180D923086F15000A8776 /* RestartLevel3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 902180D823086F15000A8776 /* RestartLevel3.sks */; };
 		902180DB23086F25000A8776 /* RestartLevel3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902180DA23086F25000A8776 /* RestartLevel3.swift */; };
+		90F745D42309B9A800E24FCF /* GameTutorial.sks in Resources */ = {isa = PBXBuildFile; fileRef = 90F745D32309B9A800E24FCF /* GameTutorial.sks */; };
+		90F745D62309B9D800E24FCF /* GameTutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F745D52309B9D800E24FCF /* GameTutorial.swift */; };
+		90F745D82309D98400E24FCF /* GameTutorialStoryLine.sks in Resources */ = {isa = PBXBuildFile; fileRef = 90F745D72309D98400E24FCF /* GameTutorialStoryLine.sks */; };
+		90F745DA2309D9A000E24FCF /* GameTutorialStoryLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F745D92309D9A000E24FCF /* GameTutorialStoryLine.swift */; };
+		90F745DC2309DA1B00E24FCF /* ChangeToMainGame.sks in Resources */ = {isa = PBXBuildFile; fileRef = 90F745DB2309DA1B00E24FCF /* ChangeToMainGame.sks */; };
+		90F745DE2309DA4300E24FCF /* ChangeToMainGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F745DD2309DA4300E24FCF /* ChangeToMainGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +84,12 @@
 		902180DA23086F25000A8776 /* RestartLevel3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestartLevel3.swift; sourceTree = "<group>"; };
 		902180DC23087B5A000A8776 /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win.wav; sourceTree = "<group>"; };
 		902180DD23087B61000A8776 /* lose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = lose.wav; sourceTree = "<group>"; };
+		90F745D32309B9A800E24FCF /* GameTutorial.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameTutorial.sks; sourceTree = "<group>"; };
+		90F745D52309B9D800E24FCF /* GameTutorial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTutorial.swift; sourceTree = "<group>"; };
+		90F745D72309D98400E24FCF /* GameTutorialStoryLine.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameTutorialStoryLine.sks; sourceTree = "<group>"; };
+		90F745D92309D9A000E24FCF /* GameTutorialStoryLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTutorialStoryLine.swift; sourceTree = "<group>"; };
+		90F745DB2309DA1B00E24FCF /* ChangeToMainGame.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ChangeToMainGame.sks; sourceTree = "<group>"; };
+		90F745DD2309DA4300E24FCF /* ChangeToMainGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeToMainGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +128,9 @@
 				9021807C230261BA000A8776 /* AppDelegate.swift */,
 				902180A223027399000A8776 /* Scene.sks */,
 				902180BC23070576000A8776 /* MainStoryLine.sks */,
+				90F745D32309B9A800E24FCF /* GameTutorial.sks */,
+				90F745D72309D98400E24FCF /* GameTutorialStoryLine.sks */,
+				90F745DB2309DA1B00E24FCF /* ChangeToMainGame.sks */,
 				902180A423032F2F000A8776 /* GameScene.sks */,
 				902180B22306319E000A8776 /* ChangeLevel.sks */,
 				902180D02308625A000A8776 /* RestartScene.sks */,
@@ -133,18 +148,21 @@
 				90218087230261BC000A8776 /* LaunchScreen.storyboard */,
 				9021808A230261BC000A8776 /* Info.plist */,
 				902180A023027382000A8776 /* Scene.swift */,
-				902180A623032F47000A8776 /* GameScene.swift */,
-				902180AE230618B2000A8776 /* Level2.swift */,
-				902180C2230713E5000A8776 /* Level3.swift */,
-				902180CE23071C45000A8776 /* Portal.swift */,
+				90F745D92309D9A000E24FCF /* GameTutorialStoryLine.swift */,
+				90F745D52309B9D800E24FCF /* GameTutorial.swift */,
+				90F745DD2309DA4300E24FCF /* ChangeToMainGame.swift */,
 				902180BE23070596000A8776 /* MainStoryLine.swift */,
-				902180BA2306F9A5000A8776 /* Level2Story.swift */,
-				902180C623071425000A8776 /* Level3Story.swift */,
-				902180B4230631B2000A8776 /* ChangeLevel.swift */,
-				902180CA230714B4000A8776 /* ChangeToLevel3.swift */,
+				902180A623032F47000A8776 /* GameScene.swift */,
 				902180D223086282000A8776 /* RestartScene.swift */,
+				902180B4230631B2000A8776 /* ChangeLevel.swift */,
+				902180BA2306F9A5000A8776 /* Level2Story.swift */,
+				902180AE230618B2000A8776 /* Level2.swift */,
 				902180D623086E98000A8776 /* RestartLevel2.swift */,
+				902180CA230714B4000A8776 /* ChangeToLevel3.swift */,
+				902180C623071425000A8776 /* Level3Story.swift */,
+				902180C2230713E5000A8776 /* Level3.swift */,
 				902180DA23086F25000A8776 /* RestartLevel3.swift */,
+				902180CE23071C45000A8776 /* Portal.swift */,
 			);
 			path = ARZombieTest;
 			sourceTree = "<group>";
@@ -218,10 +236,13 @@
 				902180A323027399000A8776 /* Scene.sks in Resources */,
 				902180C52307140B000A8776 /* Level3Story.sks in Resources */,
 				902180B72306F8FF000A8776 /* Level2Story.sks in Resources */,
+				90F745D42309B9A800E24FCF /* GameTutorial.sks in Resources */,
 				902180BD23070576000A8776 /* MainStoryLine.sks in Resources */,
 				902180B32306319E000A8776 /* ChangeLevel.sks in Resources */,
 				902180A92304F56D000A8776 /* ghost.wav in Resources */,
+				90F745DC2309DA1B00E24FCF /* ChangeToMainGame.sks in Resources */,
 				902180D523086E63000A8776 /* RestartLevel2.sks in Resources */,
+				90F745D82309D98400E24FCF /* GameTutorialStoryLine.sks in Resources */,
 				90218084230261BA000A8776 /* Main.storyboard in Resources */,
 				902180CD23071C1D000A8776 /* Portal.sks in Resources */,
 			);
@@ -235,6 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				902180C3230713E5000A8776 /* Level3.swift in Sources */,
+				90F745DA2309D9A000E24FCF /* GameTutorialStoryLine.swift in Sources */,
 				902180AF230618B2000A8776 /* Level2.swift in Sources */,
 				902180BB2306F9A5000A8776 /* Level2Story.swift in Sources */,
 				90218081230261BA000A8776 /* ViewController.swift in Sources */,
@@ -242,9 +264,11 @@
 				902180D723086E98000A8776 /* RestartLevel2.swift in Sources */,
 				902180CF23071C45000A8776 /* Portal.swift in Sources */,
 				902180BF23070596000A8776 /* MainStoryLine.swift in Sources */,
+				90F745DE2309DA4300E24FCF /* ChangeToMainGame.swift in Sources */,
 				902180DB23086F25000A8776 /* RestartLevel3.swift in Sources */,
 				902180D323086282000A8776 /* RestartScene.swift in Sources */,
 				902180A723032F47000A8776 /* GameScene.swift in Sources */,
+				90F745D62309B9D800E24FCF /* GameTutorial.swift in Sources */,
 				902180B5230631B2000A8776 /* ChangeLevel.swift in Sources */,
 				902180C723071425000A8776 /* Level3Story.swift in Sources */,
 				902180A123027382000A8776 /* Scene.swift in Sources */,
@@ -401,7 +425,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = dhyaneebhatt.ARZombieTest;
+				PRODUCT_BUNDLE_IDENTIFIER = "dhyaneebhatt.ARZombieTest-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -419,7 +443,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = dhyaneebhatt.ARZombieTest;
+				PRODUCT_BUNDLE_IDENTIFIER = "dhyaneebhatt.ARZombieTest-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
